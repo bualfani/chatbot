@@ -33,3 +33,24 @@ def webhook():
                     send_message(sender_id, "Hello! I am a chatbot built using the Facebook API.")
 
     return "ok", 200
+
+def send_message(recipient_id, message_text):
+    # Send message to recipient
+    params = {
+        "access_token": access_token
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "text": message_text
+        }
+    })
+    r = requests.post("https://graph.facebook.com/v11.0/me/messages", params=params, headers=headers, data=data)
+
+if __name__ == '__main__':
+    app.run(debug=True)
